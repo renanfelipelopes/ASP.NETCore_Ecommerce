@@ -9,6 +9,7 @@ namespace CasaDoCodigo.Repositories
 {
     public interface IPedidoRepository
     {
+        Pedido GetPedido();
     }
 
     public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
@@ -18,6 +19,21 @@ namespace CasaDoCodigo.Repositories
         public PedidoRepository(ApplicationContext contexto, IHttpContextAccessor contextAccessor) : base(contexto)
         {
             this.contextAccessor = contextAccessor;
+        }
+
+        public Pedido GetPedido()
+        {
+            var pedidoId = GetPedidoId();
+            var pedido = dbSet.Where(p => p.Id == pedidoId).SingleOrDefault();
+
+            if (pedido == null)
+            {
+                pedido = new Pedido();
+                dbSet.Add(pedido);
+                contexto.SaveChanges();
+            }
+
+            return pedido;
         }
 
         private int? GetPedidoId()
