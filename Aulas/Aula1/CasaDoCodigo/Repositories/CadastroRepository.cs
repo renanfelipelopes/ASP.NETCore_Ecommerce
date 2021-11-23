@@ -8,6 +8,7 @@ namespace CasaDoCodigo.Repositories
 {
     public interface ICadastroRepository
     {
+
     }
 
     public class CadastroRepository : BaseRepository<Cadastro>, ICadastroRepository

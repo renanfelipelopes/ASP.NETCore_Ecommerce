@@ -28,7 +28,7 @@ namespace CasaDoCodigo
             services.AddSession();
 
             string connectionString = Configuration.GetConnectionString("Default");
-            
+
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(connectionString)
             );
@@ -38,10 +38,11 @@ namespace CasaDoCodigo
             services.AddTransient<IPedidoRepository, PedidoRepository>();
             services.AddTransient<ICadastroRepository, CadastroRepository>();
             services.AddTransient<IItemPedidoRepository, ItemPedidoRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
@@ -63,8 +64,10 @@ namespace CasaDoCodigo
                     template: "{controller=Pedido}/{action=Carrossel}/{codigo?}");
             });
 
-            serviceProvider
-                .GetService<IDataService>().InicializaDB();
+            serviceProvider.GetService<IDataService>().InicializaDB();
+
+
         }
     }
+
 }
